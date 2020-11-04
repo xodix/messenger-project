@@ -1,0 +1,42 @@
+$main-bg: #222831;
+$secondary-bg: #4D2068;
+$main-color: white;
+
+body {
+  background: $main-bg;
+  color: $main-color;
+  font-size: 1.8vh;
+}
+
+
+header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 4em;
+  margin-bottom: .4em;
+}
+
+button {
+  margin: auto;
+  display: block;
+  width: 71%;
+  border: none;
+  padding-top: .4em;
+  padding-bottom: .4em;
+  border-radius: 10%;
+  background: $secondary-bg;
+  color: $main-color;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 2.81em;
+}
+
+@media (max-width: 1600px) {
+
+}
+@media (max-width: 768px) {
+
+}
+@media (max-width: 450px) {
+
+}
