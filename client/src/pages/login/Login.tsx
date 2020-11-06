@@ -1,5 +1,5 @@
 import React from 'react';
-import 'D:\\CODE\\.node\\projects\\react\\mern\\messenger project\\client\\src\\pages\\login\\style\\login.scss';
+import './style/login.scss';
 
 export default class Login extends React.Component {
   render() {
@@ -7,9 +7,9 @@ export default class Login extends React.Component {
       <form method="POST" action="/a/login">
         <header>Log in</header>
         <label>Login:</label>
-        <input type="text" />
+        <input type="text" name="userName"/>
         <label>Password:</label>
-        <input type="text" />
+        <input type="password" name="password"/>
         <button type="submit">Log in</button>
         <button type="button">Register</button>
       </form>
