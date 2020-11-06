@@ -18,13 +18,13 @@ const app = express();
 
 app.use(express.json());
 
-// import friendRouter from './routes/friendshipsRouter';
-// import groupRouter from './routes/groupRouter';
+import friendRouter from './routes/friendshipsRouter';
+import groupRouter from './routes/groupRouter';
 // import messageRouter from './routes/messageRouter';
 import userRouter from './routes/userRouter';
 
-// app.use('/f/', friendRouter);
-// app.use('/g/', groupRouter);
+app.use('/f/', friendRouter);
+app.use('/g/', groupRouter);
 // app.use('/m/', messageRouter);
 app.use('/u/', userRouter);
 app.get('*', (req, res) => {
