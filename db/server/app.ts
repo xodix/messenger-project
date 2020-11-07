@@ -20,15 +20,22 @@ app.use(express.json());
 
 import friendRouter from './routes/friendshipsRouter';
 import groupRouter from './routes/groupRouter';
-// import messageRouter from './routes/messageRouter';
+import messageRouter from './routes/messageRouter';
 import userRouter from './routes/userRouter';
 
 app.use('/f/', friendRouter);
 app.use('/g/', groupRouter);
-// app.use('/m/', messageRouter);
+app.use('/m/', messageRouter);
 app.use('/u/', userRouter);
+
 app.get('*', (req, res) => {
-  res.send("404 not found");
+  res.send(`can't GET ${req.url} 404 not found`);
+});
+app.post('*', (req, res) => {
+  res.send(`can't POST ${req.url} 404 not found`);
+});
+app.delete('*', (req, res) => {
+  res.send(`can't DELETE ${req.url} 404 not found`);
 });
 
 const port = 5000 || process.env.PORT;
