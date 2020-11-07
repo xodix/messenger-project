@@ -1,0 +1,21 @@
+$main-bg: #222831;
+$secondary-bg: #4D2068;
+$main-color: white;
+
+body {
+  background: $main-bg;
+  color: $main-color;
+  font-size: 1.8vh;
+  margin: 0;
+}
+
+form {
+  margin: auto;
+  width: 33%;
+  padding: 2em;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import './style/register.scss';
+import { Link } from 'react-router-dom';
 
 interface state {
   email: string,
@@ -42,15 +43,19 @@ export default class Register1 extends React.Component {
 
   render() {
     return (
-      <form method="POST" action="/a/login">
+      <form method="POST" action="/u/login">
         <header>Register</header>
         <div id="err">{this.state.err}</div>
         <label>Email:</label>
         <input type="email" onChange={this.handleChange} onBlur={this.handleBlur} maxLength={100} name="email" />
         <label>Username:</label>
         <input type="text" onChange={this.handleChange} maxLength={30} minLength={3} name="userName" />
-        <button type="submit">&gt;</button>
-        <button type="button">Log in</button>
+        <Link to="/register2">
+          <button type="submit">&gt;</button>
+        </Link>
+        <Link to="/login">
+          <button type="button">Log in</button>
+        </Link>
       </form>
     )
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style/register.scss';
 
 interface state {
@@ -49,7 +50,9 @@ export default class Register2 extends React.Component {
         <label>Repeat password:</label>
         <input type="password" name="repeat" onChange={this.handleChange} onBlur={this.handleBlur} maxLength={30} minLength={8} value={this.state.repeat} />
         <button type="submit" disabled={!!this.state.err}>Register</button>
-        <button type="button">&lt;</button>
+        <Link to="/register1">
+          <button type="button">&lt;</button>
+        </Link>
       </form>
     )
   }

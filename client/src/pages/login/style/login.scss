@@ -2,23 +2,6 @@ $main-bg: #222831;
 $secondary-bg: #4D2068;
 $main-color: white;
 
-body {
-  background: $main-bg;
-  color: $main-color;
-  font-size: 1.8vh;
-}
-
-form {
-  margin: auto;
-  width: 33%;
-  padding: 2em;
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 input {
   display: block;
   width: 100%;
@@ -28,6 +11,7 @@ input {
   margin-bottom: 1em;
   font-size: 2em;
 }
+
 input:focus {
   border: .2em solid $secondary-bg;
 }
@@ -62,11 +46,13 @@ button {
     width: 50%;
   }
 }
+
 @media (max-width: 768px) {
   form {
     width: 80%;
   }
 }
+
 @media (max-width: 450px) {
   form {
     width: 95%;

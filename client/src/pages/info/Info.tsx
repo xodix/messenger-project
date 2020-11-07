@@ -3,6 +3,7 @@ import './style/info.scss';
 import slider1 from './style/img/slider1.jpg';
 import slider2 from './style/img/slider2.jpg';
 import slider3 from './style/img/slider3.jpg';
+import { Link } from 'react-router-dom';
 
 interface state {
   slide: string,
@@ -55,10 +56,12 @@ export default class Info extends React.Component {
       <div className="container">
         <div className="half">
           <header>Contact your friends.</header>
-          <button>Start</button>
+          <Link to="/login">
+            <button>Start</button>
+          </Link>
         </div>
         <div className="half">
-          <img src={this.state.slide} alt="slider" className="fade-in" />
+          <div className="fade-in" id="slider" style={{ background: `url(${this.state.slide})` }}></div>
         </div>
       </div>
     )
