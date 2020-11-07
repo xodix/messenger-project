@@ -34,7 +34,7 @@ function add(email: string, password: string, userName: string) {
 function changePassword(email: string, oldPassword: string, newPassword: string) {
   return new Promise<string>((resolve, reject) => {
     User.updateOne({ email, password: oldPassword }, { password: newPassword })
-      .then(() => resolve("succes"))
+      .then(() => resolve("success"))
       .catch(err => {
         if (err) reject(err);
       });
@@ -45,9 +45,9 @@ function changePassword(email: string, oldPassword: string, newPassword: string)
 function remove(email: string, password: string) {
   return new Promise<string>((resolve, reject) => {
     User.deleteOne({ email, password })
-      .then(() => resolve("succes"))
+      .then(() => resolve("success"))
       .catch(err => {
-        if (err) reject(err)
+        if (err) reject(err);
       });
   });
 }
