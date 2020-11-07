@@ -8,7 +8,8 @@ mongoose.connect
       useNewUrlParser: true,
       useUnifiedTopology: true
     }
-  );
+  )
+  .then(() => console.log("Mongodb atlas conected!"));
 mongoose.connection.on('error', err => {
   throw err;
 });
@@ -39,4 +40,4 @@ app.delete('*', (req, res) => {
 });
 
 const port = 5000 || process.env.PORT;
-app.listen(port, () => console.log());
+app.listen(port, () => console.log(`server listening on port: ${port}!`));
