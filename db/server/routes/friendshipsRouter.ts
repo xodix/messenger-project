@@ -4,17 +4,29 @@ const router = Router();
 
 // @GET root/f/get {userId}
 router.get('/get', async (req, res) => {
-  res.json(await Friendships.get(req.body.userId));
+  try {
+    res.json(await Friendships.get(req.body.userId));
+  } catch (error) {
+    res.json(error.message);
+  }
 });
 
 // @POST root/f/add {id1, id2}
 router.post('/add', async (req, res) => {
-  res.json(await Friendships.add(req.body.id1, req.body.id2));
+  try {
+    res.json(await Friendships.add(req.body.id1, req.body.id2));
+  } catch (error) {
+    res.json(error.message);
+  }
 });
 
 // @DELETE root/f/delete {id1, id2}
 router.delete('/delete', async (req, res) => {
-  res.json(await Friendships.remove(req.body.id1, req.body.id2));
+  try {
+    res.json(await Friendships.remove(req.body.id1, req.body.id2));
+  } catch (error) {
+    res.json(error.message);
+  }
 })
 
 export default router;

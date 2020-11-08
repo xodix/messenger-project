@@ -4,6 +4,7 @@ const groupSchema = new mongoose.Schema({
   name: {
     required: true,
     type: String,
+    trim: true,
     maxlength: 30
   },
   participants: {

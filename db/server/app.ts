@@ -6,7 +6,9 @@ mongoose.connect
     process.env.DB_URI as string,
     {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      autoIndex: true,
+      useCreateIndex: true
     }
   )
   .then(() => console.log("Mongodb atlas conected!"));
