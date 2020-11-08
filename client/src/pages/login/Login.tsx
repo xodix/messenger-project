@@ -7,7 +7,7 @@ export default class Login extends React.Component {
     return (
       <form method="POST" action="/a/login">
         <header>Log in</header>
-        <label>Login:</label>
+        <label>Email:</label>
         <input type="text" name="userName" />
         <label>Password:</label>
         <input type="password" name="password" />

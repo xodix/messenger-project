@@ -1,15 +1,22 @@
 import mongoose from 'mongoose';
 import Group from './../models/Group';
 
+// get all user groups
+function get(id: mongoose.Types.ObjectId) {
+  return new Promise((resolve, reject) => {
+    Group.find({ participants: id })
+      .then(doc => resolve(doc))
+      .catch(err => reject(err));
+  });
+}
+
 // add group
 function add(name: string, participants: mongoose.Types.ObjectId[]) {
   return new Promise<string>((resolve, reject) => {
     new Group({ name, participants, admins: participants[0] })
       .save()
       .then(() => resolve("success"))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
@@ -18,9 +25,7 @@ function remove(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId) {
   return new Promise<string>((resolve, reject) => {
     Group.deleteOne({ _id: id, admins: admin })
       .then(() => resolve('success'))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
@@ -29,9 +34,7 @@ function addAdmin(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId, n
   return new Promise<string>((resolve, reject) => {
     Group.updateOne({ _id: id, admins: admin }, { $push: { admins: newAdmin } })
       .then(() => resolve('success'))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
@@ -40,9 +43,7 @@ function removeAdmin(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId
   return new Promise<string>((resolve, reject) => {
     Group.updateOne({ _id: id, admins: admin }, { $pull: { admins: soonExAdmin } })
       .then(() => resolve('success'))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
@@ -51,9 +52,7 @@ function addParticipant(id: mongoose.Types.ObjectId, participant: mongoose.Types
   return new Promise<string>((resolve, reject) => {
     Group.updateOne({ _id: id, participants: participant }, { $push: { participants: newParticipant } })
       .then(() => resolve('success'))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
@@ -62,13 +61,12 @@ function removeParticipant(id: mongoose.Types.ObjectId, admin: mongoose.Types.Ob
   return new Promise((resolve, reject) => {
     Group.updateOne({ _id: id, admins: admin }, { $pull: { participants: soonExParticipant } })
       .then(() => resolve('success'))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
 export default {
+  get,
   add,
   remove,
   addAdmin,

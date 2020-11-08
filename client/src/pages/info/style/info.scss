@@ -2,6 +2,13 @@ $main-bg: #222831;
 $secondary-bg: #4D2068;
 $main-color: white;
 
+body {
+  background: $main-bg;
+  color: $main-color;
+  font-size: 1.8vh;
+  margin: 0;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -15,14 +22,14 @@ header {
   margin-bottom: .4em;
 }
 
-button {
+button.bigger {
   margin: auto;
   display: block;
   width: 50%;
   border: none;
   padding-top: .4em;
   padding-bottom: .4em;
-  border-radius: 10%;
+  border-radius: .4em;
   background: $secondary-bg;
   color: $main-color;
   margin-top: 1em;
@@ -77,8 +84,26 @@ button {
   animation: fadein 1s linear;
 }
 
+.fade-out {
+  animation: fadeout 1s linear;
+}
+
 @keyframes fadein {
-  0% {
+  from {
+    opacity: .4;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+
+  to {
     opacity: .6;
   }
 }

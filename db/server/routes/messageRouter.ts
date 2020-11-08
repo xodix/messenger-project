@@ -2,6 +2,11 @@ import Message from './../controllers/Message';
 import { Router } from 'express';
 const router = Router();
 
+// @GET root/m/get {chatId}
+router.get('/get', async (req, res) => {
+  res.json(await Message.get(req.body.chatId));
+})
+
 // @POST root/m/add {userId, content, chatId}
 router.post('/add', async (req, res) => {
   res.json(await Message.add(req.body.userId, req.body.content, req.body.chatId));

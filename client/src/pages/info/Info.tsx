@@ -29,22 +29,32 @@ export default class Info extends React.Component {
 
   componentDidMount() {
     const interval = setInterval(() => {
-      if (this.state.i === 1) {
-        this.setState({
-          slide: slider2,
-          i: 2
-        });
-      } else if (this.state.i === 2) {
-        this.setState({
-          slide: slider3,
-          i: 3
-        });
-      } else {
-        this.setState({
-          slide: slider1,
-          i: 1
-        });
-      }
+      const slider = document.getElementById('slider');
+      if (slider) slider.className = "";
+      setTimeout(() => {
+        if (slider) slider.className = "fade-out"
+      }, 1000)
+      setTimeout(() => {
+        if (this.state.i === 1) {
+          this.setState({
+            slide: slider2,
+            i: 2
+          });
+        } else if (this.state.i === 2) {
+          this.setState({
+            slide: slider3,
+            i: 3
+          });
+        } else {
+          this.setState({
+            slide: slider1,
+            i: 1
+          });
+        }
+      }, 2000);
+      setTimeout(() => {
+        if (slider) slider.className = "fade-in"
+      }, 2000)
     }, 9000);
     this.setState({
       interval: interval
@@ -57,11 +67,11 @@ export default class Info extends React.Component {
         <div className="half">
           <header>Contact your friends.</header>
           <Link to="/login">
-            <button>Start</button>
+            <button className="bigger">Start</button>
           </Link>
         </div>
         <div className="half">
-          <div className="fade-in" id="slider" style={{ background: `url(${this.state.slide})` }}></div>
+          <img src={this.state.slide} className="fade-in" id="slider" alt="slider" />
         </div>
       </div>
     )

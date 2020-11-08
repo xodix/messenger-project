@@ -1,15 +1,27 @@
 import mongoose from 'mongoose';
 import Friendships from './../models/Friendships';
 
+// get all friends of a user
+function get(id1: mongoose.Types.ObjectId) {
+  return new Promise<mongoose.Document[]>((resolve, reject) => {
+    Friendships.find({
+      $or: [
+        { id1 },
+        { id2: id1 }
+      ]
+    })
+      .then(doc => resolve(doc))
+      .catch(err => reject(err));
+  });
+}
+
 //  add friendship
 function add(id1: mongoose.Types.ObjectId, id2: mongoose.Types.ObjectId) {
   return new Promise<string>((resolve, reject) => {
     new Friendships({ id1, id2 })
       .save()
       .then(() => resolve('success'))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
@@ -24,13 +36,12 @@ function remove(id1: mongoose.Types.ObjectId, id2: mongoose.Types.ObjectId) {
         ]
     })
       .then(() => resolve('success'))
-      .catch(err => {
-        if (err) reject(err);
-      });
+      .catch(err => reject(err));
   });
 }
 
 export default {
+  get,
   add,
   remove
 }

@@ -2,6 +2,11 @@ import Group from './../controllers/Group';
 import { Router } from 'express';
 const router = Router();
 
+// @GET root/g/get {userId}
+router.get('/get', async (req, res) => {
+  res.json(await Group.get(req.body.userId));
+});
+
 // @POST root/g/add {name, participants}
 router.post('/add', async (req, res) => {
   res.json(await Group.add(req.body.name, req.body.participants));

@@ -5,8 +5,7 @@ import Info from './pages/info/Info';
 import Login from './pages/login/Login';
 import Register1 from './pages/register/Register1';
 import Register2 from './pages/register/Register2';
-
-import './main.scss';
+import Friends from './pages/friends/Friends';
 
 function App() {
   return (
@@ -17,6 +16,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register1" component={Register1} />
         <Route path="/register2" component={Register2} />
+        <Route path="/friends" component={Friends} />
       </Switch>
     </Router>
   );
