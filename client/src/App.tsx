@@ -5,7 +5,9 @@ import Info from './pages/info/Info';
 import Login from './pages/login/Login';
 import Register1 from './pages/register/Register1';
 import Register2 from './pages/register/Register2';
-import Friends from './pages/friends/Friends';
+import Chats from './pages/chats/Chats';
+import Settings from './pages/settings/Settings';
+import p404 from './pages/404/404';
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register1" component={Register1} />
         <Route path="/register2" component={Register2} />
-        <Route path="/friends" component={Friends} />
+        <Route path="/chats" component={Chats} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/*" component={p404} />
       </Switch>
     </Router>
   );
