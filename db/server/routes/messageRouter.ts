@@ -2,8 +2,8 @@ import Message from './../controllers/Message';
 import { Router } from 'express';
 const router = Router();
 
-// @GET root/m/get {chatId}
-router.get('/get', async (req, res) => {
+// @POST root/m/get {chatId}
+router.post('/get', async (req, res) => {
   try {
     res.json(await Message.get(req.body.chatId));
   } catch (error) {

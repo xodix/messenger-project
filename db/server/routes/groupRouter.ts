@@ -2,8 +2,8 @@ import Group from './../controllers/Group';
 import { Router } from 'express';
 const router = Router();
 
-// @GET root/g/get {userId}
-router.get('/get', async (req, res) => {
+// @POST root/g/get {userId}
+router.post('/get', async (req, res) => {
   try {
     res.json(await Group.get(req.body.userId));
   } catch (error) {

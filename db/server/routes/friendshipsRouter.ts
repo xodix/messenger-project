@@ -2,8 +2,8 @@ import Friendships from './../controllers/Friendships';
 import { Router } from 'express';
 const router = Router();
 
-// @GET root/f/get {userId}
-router.get('/get', async (req, res) => {
+// @POST root/f/get {userId}
+router.post('/get', async (req, res) => {
   try {
     res.json(await Friendships.get(req.body.userId));
   } catch (error) {
