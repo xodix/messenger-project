@@ -1,5 +1,4 @@
 import React from 'react';
-import './style/register.scss';
 import { Link } from 'react-router-dom';
 
 interface state {

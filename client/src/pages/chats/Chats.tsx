@@ -1,5 +1,4 @@
 import React from 'react';
-import './style/chats.scss';
 import Nav from '../../components/Nav';
 
 class Chats extends React.Component {

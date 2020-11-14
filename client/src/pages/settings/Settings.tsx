@@ -1,7 +1,6 @@
 import React from 'react';
-import './style/settings.scss';
 import Nav from '../../components/Nav';
-import ProvilePic from './style/img/profile-pic.jpg';
+import ProvilePic from './img/profile-pic.jpg';
 
 interface state {
   popupDisplay: string,

@@ -1,8 +1,7 @@
 import React from 'react';
-import './style/info.scss';
-import slider1 from './style/img/slider1.jpg';
-import slider2 from './style/img/slider2.jpg';
-import slider3 from './style/img/slider3.jpg';
+import slider1 from './img/slider1.jpg';
+import slider2 from './img/slider2.jpg';
+import slider3 from './img/slider3.jpg';
 import { Link } from 'react-router-dom';
 
 interface state {

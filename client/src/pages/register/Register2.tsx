@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './style/register.scss';
 
 interface state {
   password: string,
