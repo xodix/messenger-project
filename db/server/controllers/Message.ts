@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Message from './../models/Message';
 
-// get all messages in a chat
+// *get all messages in a chat
 function get(chat: mongoose.Types.ObjectId) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -12,7 +12,7 @@ function get(chat: mongoose.Types.ObjectId) {
   });
 }
 
-// add message to db and return document
+// *add message to db and return document
 function add(
   userId: mongoose.Types.ObjectId,
   content: string,
@@ -34,7 +34,7 @@ function add(
   });
 }
 
-// remove message from db
+// *remove message from db
 function remove(id: mongoose.Types.ObjectId, userId: mongoose.Types.ObjectId) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -46,7 +46,7 @@ function remove(id: mongoose.Types.ObjectId, userId: mongoose.Types.ObjectId) {
   });
 }
 
-// edit message in db
+// *edit message in db
 function edit(id: mongoose.Types.ObjectId, userId: mongoose.Types.ObjectId, content: string) {
   return new Promise(async (resolve, reject) => {
     try {

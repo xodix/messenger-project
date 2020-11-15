@@ -1,15 +1,14 @@
 import User from './../models/User';
 import bcrypt from 'bcrypt';
 
-// todo: Conver functions to async/await
 
-// checks if user exists in db
 interface IUser {
   email: string,
   password: string,
   userName: string
 }
 
+// *checks if user exists in db
 async function exists(email: string, password: string) {
   return new Promise<object | string>(async (resolve, reject) => {
     try {
@@ -26,7 +25,7 @@ async function exists(email: string, password: string) {
   });
 }
 
-// add user to db and return new created user
+// *add user to db and return new created user
 function add(email: string, password: string, userName: string) {
   return new Promise<object | string>(async (resolve, reject) => {
     try {
@@ -43,7 +42,7 @@ function add(email: string, password: string, userName: string) {
   });
 }
 
-// change password of user with given id and password
+// *change password of user with given id and password
 function changePassword(email: string, oldPassword: string, newPassword: string) {
   return new Promise<string>(async (resolve, reject) => {
     try {
@@ -61,7 +60,7 @@ function changePassword(email: string, oldPassword: string, newPassword: string)
   });
 }
 
-// remove the user by id and password
+// *remove the user by id and password
 function remove(email: string, password: string) {
   return new Promise<string>(async (resolve, reject) => {
     try {

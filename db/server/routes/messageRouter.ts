@@ -2,7 +2,7 @@ import Message from './../controllers/Message';
 import { Router } from 'express';
 const router = Router();
 
-// @POST root/m/get {chatId}
+// *@POST root/m/get {chatId}
 router.post('/get', async (req, res) => {
   try {
     res.json(await Message.get(req.body.chatId));
@@ -11,7 +11,7 @@ router.post('/get', async (req, res) => {
   }
 })
 
-// @POST root/m/add {userId, content, chatId}
+// *@POST root/m/add {userId, content, chatId}
 router.post('/add', async (req, res) => {
   try {
     res.json(await Message.add(req.body.userId, req.body.content, req.body.chatId));
@@ -20,7 +20,7 @@ router.post('/add', async (req, res) => {
   }
 });
 
-// @DELETE root/m/delete {messageId, userId}
+// *@DELETE root/m/delete {messageId, userId}
 router.delete('/delete', async (req, res) => {
   try {
     res.json(await Message.remove(req.body.messageId, req.body.userId));
@@ -29,7 +29,7 @@ router.delete('/delete', async (req, res) => {
   }
 });
 
-// @POST root/m/edit {messageId, userId, content}
+// *@POST root/m/edit {messageId, userId, content}
 router.post('/edit', async (req, res) => {
   try {
     res.json(await Message.edit(req.body.messageId, req.body.userId, req.body.content));

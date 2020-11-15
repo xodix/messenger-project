@@ -33,14 +33,14 @@ app.use('/g/', groupRouter);
 app.use('/m/', messageRouter);
 app.use('/u/', userRouter);
 
-app.get('*', (req, res) => {
-  res.send(`can't GET ${req.url} 404 not found`);
+app.get('/*', (req, res) => {
+  res.writeHead(404).send(`can't GET ${req.url} 404 not found`);
 });
-app.post('*', (req, res) => {
-  res.send(`can't POST ${req.url} 404 not found`);
+app.post('/*', (req, res) => {
+  res.writeHead(404).send(`can't POST ${req.url} 404 not found`);
 });
-app.delete('*', (req, res) => {
-  res.send(`can't DELETE ${req.url} 404 not found`);
+app.delete('/*', (req, res) => {
+  res.writeHead(404).send(`can't DELETE ${req.url} 404 not found`);
 });
 
 const port = 5000 || process.env.PORT;

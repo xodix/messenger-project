@@ -38,7 +38,7 @@ router.post('/addAdmin', async (req, res) => {
   }
 });
 
-// @DELETE root/g/deleteAdmin {groupId, adminId, exAdminId}
+// *@DELETE root/g/deleteAdmin {groupId, adminId, exAdminId}
 router.delete('/deleteAdmin', async (req, res) => {
   try {
     res.json(await Group.removeAdmin(req.body.groupId, req.body.adminId, req.body.exAdminId));
@@ -47,7 +47,7 @@ router.delete('/deleteAdmin', async (req, res) => {
   }
 });
 
-// @POST root/g/addParticipant {groupId, participantId, newParticipantId}
+// *@POST root/g/addParticipant {groupId, participantId, newParticipantId}
 router.post('/addParticipant', async (req, res) => {
   try {
     res.json(await Group.addParticipant(req.body.groupId, req.body.participantId, req.body.newParticipantId));
@@ -56,7 +56,7 @@ router.post('/addParticipant', async (req, res) => {
   }
 });
 
-// @DELETE root/g/removeParticipant {groupId, adminId, exParticipantId}
+// *@DELETE root/g/removeParticipant {groupId, adminId, exParticipantId}
 router.delete('/deleteParticipant', async (req, res) => {
   try {
     res.json(await Group.removeParticipant(req.body.groupId, req.body.adminId, req.body.exParticipantId));

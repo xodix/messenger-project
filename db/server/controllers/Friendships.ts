@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Friendships from './../models/Friendships';
 
-// get all friends of a user
+// *get all friends of a user
 function get(id1: mongoose.Types.ObjectId) {
   return new Promise<mongoose.Document[]>(async (resolve, reject) => {
     try {
@@ -19,7 +19,7 @@ function get(id1: mongoose.Types.ObjectId) {
   });
 }
 
-//  add friendship
+// *add friendship
 function add(id1: mongoose.Types.ObjectId, id2: mongoose.Types.ObjectId) {
   return new Promise<string>(async (resolve, reject) => {
     try {
@@ -31,7 +31,7 @@ function add(id1: mongoose.Types.ObjectId, id2: mongoose.Types.ObjectId) {
   });
 }
 
-// remove friendship
+// *remove friendship
 function remove(id1: mongoose.Types.ObjectId, id2: mongoose.Types.ObjectId) {
   return new Promise(async (resolve, reject) => {
     try {

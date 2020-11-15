@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Group from './../models/Group';
 
-// get all user groups
+// *get all user groups
 function get(id: mongoose.Types.ObjectId) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -12,7 +12,7 @@ function get(id: mongoose.Types.ObjectId) {
   });
 }
 
-// add group
+// *add group
 function add(name: string, participants: mongoose.Types.ObjectId[]) {
   return new Promise<string>(async (resolve, reject) => {
     try {
@@ -24,7 +24,7 @@ function add(name: string, participants: mongoose.Types.ObjectId[]) {
   });
 }
 
-// remove group
+// *remove group
 function remove(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId) {
   return new Promise<string>(async (resolve, reject) => {
     try {
@@ -36,7 +36,7 @@ function remove(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId) {
   });
 }
 
-// add admin to the group
+// *add admin to the group
 function addAdmin(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId, newAdmin: mongoose.Types.ObjectId) {
   return new Promise<string>(async (resolve, reject) => {
     try {
@@ -48,7 +48,7 @@ function addAdmin(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId, n
   });
 }
 
-// remove admin from the group
+// *remove admin from the group
 function removeAdmin(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId, soonExAdmin: mongoose.Types.ObjectId) {
   return new Promise<string>(async (resolve, reject) => {
     try {
@@ -60,7 +60,7 @@ function removeAdmin(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId
   });
 }
 
-// add participant to the group
+// *add participant to the group
 function addParticipant(id: mongoose.Types.ObjectId, participant: mongoose.Types.ObjectId, newParticipant: mongoose.Types.ObjectId) {
   return new Promise<string>(async (resolve, reject) => {
     try {
@@ -72,7 +72,7 @@ function addParticipant(id: mongoose.Types.ObjectId, participant: mongoose.Types
   });
 }
 
-// remove participant from the group
+// *remove participant from the group
 function removeParticipant(id: mongoose.Types.ObjectId, admin: mongoose.Types.ObjectId, soonExParticipant: mongoose.Types.ObjectId) {
   return new Promise(async (resolve, reject) => {
     try {
