@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 interface state {
   people: JSX.Element,
   userId: string
@@ -15,7 +16,6 @@ class Render extends React.Component {
       userId: "5fa80f5527ffc64b8ceccef7"
     };
   }
-
   componentDidMount() {
     fetch('/f/get', {
       method: "POST",

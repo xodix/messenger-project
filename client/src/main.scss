@@ -2,35 +2,6 @@ $main-bg: #222831;
 $secondary-bg: #4D2068;
 $main-color: white;
 
-// ?
-
-.message-group {
-  width: 60%;
-  background: rgba(79, 32, 105, .1);
-  margin-bottom: 1em;
-  height: max-content !important;
-  font-size: 2em;
-  border-radius: 1em;
-  margin-left: 1em;
-  padding: .3em;
-  display: block !important;
-  clear: both;
-  word-wrap: break-word;
-}
-
-.me {
-  text-align: right;
-  float: right;
-  margin-right: 1em;
-  margin-left: 0;
-}
-
-.nick-name {
-  display: block;
-}
-
-// ?
-
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -159,6 +130,52 @@ header {
   font-weight: bold;
   font-size: 4em;
   margin-bottom: .4em;
+}
+
+.message-group {
+  width: 60%;
+  background: rgba(79, 32, 105, .1);
+  margin-bottom: 1em;
+  height: max-content !important;
+  font-size: 2em;
+  border-radius: 1em;
+  margin-left: 1em;
+  padding: .3em;
+  display: block !important;
+  clear: both;
+  word-wrap: break-word;
+}
+
+.me {
+  text-align: right;
+  float: right;
+  margin-right: 1em;
+  margin-left: 0;
+}
+
+.nick-name {
+  display: block;
+}
+
+.chat-input {
+  width: 80%;
+  margin: 0;
+}
+
+.send {
+  margin-left: 1em;
+  background-color: red;
+  width: 4em;
+  height: 4em;
+}
+
+.chat {
+  width: 90%;
+  display: flex;
+  margin: 1em;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pab {
@@ -298,6 +315,10 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+  body {
+    margin-bottom: 6vh;
+  }
+
   .half:nth-child(2) {
     position: absolute;
     width: 100%;
@@ -318,7 +339,7 @@ a:hover {
     z-index: 2;
   }
 
-  .spacer {
+  .spacer-bottom {
     display: none;
   }
 

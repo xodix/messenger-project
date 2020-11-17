@@ -8,19 +8,13 @@ function Nav() {
         <div className="logo"></div>
         <div className="right">
           <div className="nav-elem">
-            <Link to="/chats">
-              home
-        </Link>
+            <Link to="/chats">home</Link>
           </div>
           <div className="nav-elem">
-            <Link to="/chats">
-              chats
-        </Link>
+            <Link to="/chats">chats</Link>
           </div>
           <div className="nav-elem">
-            <Link to="/settings">
-              settings
-        </Link>
+            <Link to="/settings">settings</Link>
           </div>
         </div>
       </nav>

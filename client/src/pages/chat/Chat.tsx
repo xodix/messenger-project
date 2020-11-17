@@ -30,13 +30,14 @@ class Chat extends React.Component {
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum illum nemo aspernatur corporis, praesentium odio placeat, impedit ut officiis rerum aut ipsa nisi culpa eum soluta nesciunt id. Quos, dolore!
             </div>
           </div>
+          <div className="chat">
+            <input type="text" className="chat-input" autoComplete='false' autoFocus />
+            <div className="send"></div>
+          </div>
         </main>
-        <div className="chat">
-
-        </div>
       </>
     );
-    // todo: chat form
+    // todo - chat form
   }
 }
 
