@@ -301,8 +301,6 @@ a:hover {
   }
 }
 
-@media (max-width: 768px) {}
-
 @media (max-width: 840px) {
   main {
     width: 80%;
@@ -394,33 +392,5 @@ a:hover {
 @media (max-width: 300px) {
   main {
     width: 100%;
-  }
-}
-
-.fade-in {
-  animation: fadein 1s linear;
-}
-
-.fade-out {
-  animation: fadeout 1s linear;
-}
-
-@keyframes fadein {
-  from {
-    opacity: .4;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeout {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: .6;
   }
 }
