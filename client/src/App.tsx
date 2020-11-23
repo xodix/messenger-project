@@ -11,7 +11,7 @@ import Register1 from './pages/register/Register1';
 import Register2 from './pages/register/Register2';
 import Chats from './pages/chats/Chats';
 import Settings from './pages/settings/Settings';
-import Chat from './pages/chat/Chat';
+// import Chat from './pages/chat/Chat';
 import p404 from './pages/404/404';
 
 // !test
@@ -28,7 +28,7 @@ function App() {
         <Route path="/register2" component={Register2} />
         <Route path="/chats" component={Chats} />
         <Route path="/settings" component={Settings} />
-        <Route path="/chat" component={Chat} />
+        {/* <Route path="/chat" component={Chat} /> */}
         <Route path="/*" component={p404} />
       </Switch>
     </Router>
