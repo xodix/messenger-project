@@ -4,32 +4,13 @@ import slider2 from "./img/slider2.jpg";
 import slider3 from "./img/slider3.jpg";
 import { Link } from "react-router-dom";
 
-export default class Info extends React.Component {
-  state: {
-    slide: string;
-    i: number;
-    interval: number;
-  };
+export default function Info(): JSX.Element {
 
-  constructor(props) {
+  const [Slide, SetSlide] = React.useState<string>(slider1);
+  const [I, SetI] = React.useState<number>(1);
+  document.getElementsByTagName('body')[0].style.marginBottom = "0";
 
-    super(props);
-    this.state = {
-      slide: slider1,
-      i: 1,
-      interval: 0,
-    };
-
-  }
-
-  componentWillUnmount(): void {
-
-    clearInterval(this.state.interval);
-
-  }
-
-  componentDidMount(): void {
-    document.getElementsByTagName('body')[0].style.marginBottom = "0";
+  React.useEffect((): () => void => {
     const slider = document.getElementById("slider");
 
     const interval = setInterval(() => {
@@ -38,55 +19,47 @@ export default class Info extends React.Component {
       slider!.style.opacity = ".6";
 
       setTimeout(() => {
-        if (this.state.i === 1) {
-          this.setState({
-            slide: slider2,
-            i: 2,
-          });
-        } else if (this.state.i === 2) {
-          this.setState({
-            slide: slider3,
-            i: 3,
-          });
+        if (I === 1) {
+          SetSlide(slider2);
+          SetI(2);
+        } else if (I === 2) {
+          SetSlide(slider3);
+          SetI(3);
         } else {
-          this.setState({
-            slide: slider1,
-            i: 1,
-          });
+          SetSlide(slider1);
+          SetI(1);
         }
       }, 1000);
 
     }, 9000);
 
-    this.setState({
-      interval: interval,
-    });
+    return () => clearInterval(interval);
 
-  }
+  }, [I, Slide]);
 
-  handleImgLoad(): void {
+  const handleImgLoad = () => {
 
     const slider = document.getElementById("slider");
+
     slider!.animate([{ opacity: .6 }, { opacity: 1 }], {duration: 1000, easing: 'linear'});
+
     slider!.style.opacity = "1";
 
   }
 
-  render(): JSX.Element {
-
-    return (
-      <div className="container">
-        <div className="half">
-          <header>Contact your friends.</header>
-          <Link to="/login">
-            <button className="bigger">Start</button>
-          </Link>
-        </div>
-        <div className="half">
-          <img src={this.state.slide} id="slider" alt="slider" onLoad={this.handleImgLoad}/>
-        </div>
+  return (
+    <div className="container">
+      <div className="half">
+        <header>Contact your friends.</header>
+        <Link to="/login">
+          <button className="bigger">Start</button>
+        </Link>
       </div>
-    );
-  }
+      <div className="half">
+        <img src={Slide} id="slider" alt="slider" onLoad={handleImgLoad}/>
+      </div>
+    </div>
+  );
+
 
 }

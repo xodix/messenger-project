@@ -1,44 +1,51 @@
-import React from 'react';
-import Nav from './../../components/Nav';
+export {};
+// import React, {useState, useEffect} from 'react';
+// import Nav from './../../components/Nav';
+// import socketIOClient from 'socket.io-client';
+// const ENDPOINT = "http://localhost:5000";
 
+// function Chat() {
+//   const [nick, setNick] = useState('anonymus');
+//   const [response, setResponse] = useState([]);
 
-class Chat extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <>
-        <Nav />
-        <main>
-          <div className="message-group">
-            <div className="nick-name">user:</div>
-            <div className="message">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum illum nemo aspernatur corporis, praesentium odio placeat, impedit ut officiis rerum aut ipsa nisi culpa eum soluta nesciunt id. Quos, dolore!
-            </div>
-          </div>
-          <div className="message-group me">
-            <div className="nick-name">user:</div>
-            <div className="message">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum illum nemo aspernatur corporis, praesentium odio placeat, impedit ut officiis rerum aut ipsa nisi culpa eum soluta nesciunt id. Quos, dolore!
-            </div>
-          </div>
-          <div className="message-group">
-            <div className="nick-name">user:</div>
-            <div className="message">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum illum nemo aspernatur corporis, praesentium odio placeat, impedit ut officiis rerum aut ipsa nisi culpa eum soluta nesciunt id. Quos, dolore!
-            </div>
-          </div>
-          <div className="chat">
-            <input type="text" className="chat-input" autoComplete='false' autoFocus />
-            <div className="send"></div>
-          </div>
-        </main>
-      </>
-    );
-    // todo - chat form
-  }
-}
+//   useEffect(() => {
+//     let socket = socketIOClient(ENDPOINT);
 
-export default Chat;
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//     document.getElementsByTagName('form')[0].addEventListener("submit", (e) => {
+//       e.preventDefault();
+//       socket.emit('message', { nick, content: e.target!.msg.value });
+//       e.target!.msg.value = '';
+//     })
+
+//     socket.on("message", data => {
+//       setResponse((state) => [...state, data]);
+//     });
+
+//     // ComponentWillUnmount... yeah veary intuative Facebook
+//     return () => socket.disconnect();
+//   }, []);
+//     return (
+//       <>
+//         <Nav />
+//         <main>
+//     {
+//     response.map(elem => {
+//       return (
+//         <div className="message-group">
+//           <div className="nick-name">{elem.nick}</div>
+//           <div className="message">{elem.content}</div>
+//         </div>
+//       );
+//     })
+//     }
+//           <div className="chat">
+//             <input type="text" className="chat-input" autoComplete='false' autoFocus />
+//             <div className="send"></div>
+//           </div>
+//         </main>
+//       </>
+//     )
+// }
+
+// export default Chat;

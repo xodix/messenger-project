@@ -1,19 +1,10 @@
 import React from 'react';
 
-interface state {
-  people: JSX.Element
-}
+function Render() {
 
-class Render extends React.Component {
-  state: state;
-  constructor(props) {
-    super(props);
-    this.state = {
-      people: <>Loading...</>
-    };
-  }
+  const [people, setPeople] = React.useState<JSX.Element>(<>Loading...</>);
 
-  componentDidMount() {
+  React.useEffect(() => {
     fetch('/m/get', {
       method: "POST",
       mode: 'cors',
@@ -27,8 +18,8 @@ class Render extends React.Component {
       .then(res => res.json())
       .then(
         (resolve) => {
-          this.setState({
-            people: resolve.map((elem, i) => {
+          setPeople(
+            resolve.map((elem, i) => {
               return (
                 <div className="message-group" key={i}>
                   <div className="nick-name">user:</div>
@@ -38,18 +29,17 @@ class Render extends React.Component {
                 </div>
               );
             })
-          });
+          );
         },
         (reject) => console.error(reject)
       );
-  }
-  render() {
-    return (
-      <>
-        {this.state.people}
-      </>
-    );
-  }
+  }, []);
+
+  return (
+    <>
+      {people}
+    </>
+  );
 }
 
 export default Render;

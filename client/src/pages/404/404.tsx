@@ -1,20 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-interface state {
-  loading: boolean
-}
+function p404(): JSX.Element {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [Loading, SetLoading] = useState("Loading...");
 
-class p404 extends React.Component {
-  state: state
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true
-    };
-  }
+  const handleLoad = (): void => SetLoading('');
 
-  render() {
-    return <img
+  return (
+  <>
+    {Loading ? Loading : null}
+    <img
       src="https://http.cat/404.jpg"
       alt="A http cat"
       style={
@@ -24,8 +19,11 @@ class p404 extends React.Component {
           width: "60%"
         }
       }
+      onLoad={handleLoad}
     />
-  };
-}
+  </>
+  )
+
+};
 
 export default p404;

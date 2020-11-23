@@ -1,22 +1,11 @@
 import React from 'react';
 
-interface state {
-  people: JSX.Element,
-  userId: string
-}
+function Render(): JSX.Element {
 
-class Render extends React.Component {
+  const [people, setPeople] = React.useState<JSX.Element>(<>Loading...</>)
+  const [userId] = React.useState("5fa80f5527ffc64b8ceccef7");
 
-  state: state;
-  constructor(props) {
-    super(props);
-    this.state = {
-      people: <>Loading...</>,
-      userId: "5fa80f5527ffc64b8ceccef7"
-    };
-  }
-
-  componentDidMount() {
+  React.useEffect(() => {
     fetch('/f/get', {
       method: "POST",
       mode: 'cors',
@@ -30,24 +19,23 @@ class Render extends React.Component {
       .then(res => res.json())
       .then(
         (resolve) => {
-          this.setState({
-            people: resolve.map((elem, i) => {
-              return <li key={i}>{elem.id1 === this.state.userId ? elem.id1 : elem.id2}</li>;
+          setPeople(
+            resolve.map((elem, i) => {
+              return <li key={i}>{elem.id1 === userId ? elem.id1 : elem.id2}</li>;
             })
-          });
+          );
         },
         (reject) => console.error(reject)
       );
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  render() {
-    return (
-      <ul>
-        {this.state.people}
-      </ul>
-    );
-  }
-
+  return (
+    <ul>
+      {people}
+    </ul>
+  );
 }
+
 
 export default Render;
