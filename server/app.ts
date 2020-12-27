@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import config from './config/';
 import mongoose from 'mongoose';
+
 mongoose.connect
   (
-    process.env.DB_URI as string,
+    config.MONGO_DB_URI as string,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -33,15 +33,51 @@ app.use('/g/', groupRouter);
 app.use('/m/', messageRouter);
 app.use('/u/', userRouter);
 
-app.get('/*', (req, res) => {
-  res.writeHead(404).send(`can't GET ${req.url} 404 not found`);
-});
-app.post('/*', (req, res) => {
-  res.writeHead(404).send(`can't POST ${req.url} 404 not found`);
-});
-app.delete('/*', (req, res) => {
-  res.writeHead(404).send(`can't DELETE ${req.url} 404 not found`);
+// conn check
+app.get("/", (req, res) => {
+  res.send({ response: "I am alive" }).status(200);
 });
 
-const port = 5000 || process.env.PORT;
-app.listen(port, () => console.log(`server listening on port: ${port}!`));
+// 404s
+app.get('/*', (req, res) => {
+  res.send(`can't GET ${req.url} 404 not found`).status(404);
+});
+app.post('/*', (req, res) => {
+  res.send(`can't POST ${req.url} 404 not found`).status(404);
+});
+app.delete('/*', (req, res) => {
+  res.send(`can't DELETE ${req.url} 404 not found`).status(404);
+});
+
+// connecting to socket.io
+import http from 'http';
+const server = http.createServer(app);
+// tslint:disable-next-line: no-var-requires
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
+
+io.on('connection', socket => {
+  console.log('user connected');
+
+  const { groupId } = socket.handshake.query;
+  socket.join(groupId);
+
+  socket.on("message", msg => {
+    console.log(msg);
+    io.to(groupId).broadcast.emit();
+    io.broadcast.emit("message", msg);
+  });
+
+  socket.on("disconnect", () => {
+    socket.leave(groupId);
+    console.log('user disconnected');
+  });
+});
+
+server.listen(config.PORT, () => {
+  console.log(`Server listening on: ${config.PORT}`);
+});

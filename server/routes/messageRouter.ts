@@ -1,40 +1,41 @@
 import Message from './../controllers/Message';
 import { Router } from 'express';
+import auth from '../middleware/auth';
 const router = Router();
 
 // *@POST root/m/get {chatId}
-router.post('/get', async (req, res) => {
+router.post('/get', auth, async (req: any, res) => {
   try {
-    res.json(await Message.get(req.body.chatId));
+    res.status(200).json(await Message.get(req.body.chatId));
   } catch (error) {
-    res.json({ err: error });
+    res.status(400).json({ err: error });
   }
 })
 
 // *@POST root/m/add {userId, content, chatId}
-router.post('/add', async (req, res) => {
+router.post('/add', auth, async (req: any, res) => {
   try {
-    res.json(await Message.add(req.body.userId, req.body.content, req.body.chatId));
+    res.status(200).json(await Message.add(req.id, req.body.content, req.body.chatId));
   } catch (error) {
-    res.json(error.message);
+    res.status(400).json(error.message);
   }
 });
 
 // *@DELETE root/m/delete {messageId, userId}
-router.delete('/delete', async (req, res) => {
+router.delete('/delete', auth, async (req: any, res) => {
   try {
-    res.json(await Message.remove(req.body.messageId, req.body.userId));
+    res.status(200).json(await Message.remove(req.body.messageId, req.id));
   } catch (error) {
-    res.json(error.message);
+    res.status(400).json(error.message);
   }
 });
 
 // *@POST root/m/edit {messageId, userId, content}
-router.post('/edit', async (req, res) => {
+router.post('/edit', auth, async (req: any, res) => {
   try {
-    res.json(await Message.edit(req.body.messageId, req.body.userId, req.body.content));
+    res.status(200).json(await Message.edit(req.body.messageId, req.id, req.body.content));
   } catch (error) {
-    res.json(error.message);
+    res.status(400).json(error.message);
   }
 });
 

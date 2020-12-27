@@ -5,7 +5,7 @@ import Message from './../models/Message';
 function get(chat: mongoose.Types.ObjectId) {
   return new Promise(async (resolve, reject) => {
     try {
-      resolve(await Message.find({ chat }))
+      resolve(await Message.find({ chat }));
     } catch (err) {
       reject(err);
     }

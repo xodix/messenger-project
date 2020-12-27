@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import Nav from '../../components/Nav';
 import ProvilePic from './img/profile-pic.jpg';
 
@@ -10,6 +10,7 @@ function Settings() {
 
   const handleClick = (e) => {
     setiWantToChange(e.target.id);
+    e.target.parent.parentElement.action = e.target.id;
     setpopupDisplay(e.target.className === 'change' ? 'block' : 'none');
   }
 
@@ -43,7 +44,9 @@ function Settings() {
           <hr />
         </div>
       </main>
-      <form action="" id="popup" style={{ display: popupDisplay }}>
+
+
+      <form id="popup" style={{ display: popupDisplay }}>
         <div className="close" onClick={handleClick}>X</div>
         <label htmlFor={iWantToChange}>
           {`${iWantToChange}:`}

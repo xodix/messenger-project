@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from './resources/Logo';
 
-function Nav() {
+function Nav(): JSX.Element {
   return (
     <>
       <nav>
-        <div className="logo"></div>
+        <Logo />
         <div className="right">
           <div className="nav-elem">
             <Link to="/chats">home</Link>

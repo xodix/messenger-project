@@ -1,39 +1,32 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
+import { RegisterContext } from './../../actions/mainContext';
 import { Link } from 'react-router-dom';
 
-export default function Register1() {
-  const [email, setEmail] = React.useState<string>('');
-  const [userName, setUserName] = React.useState<string>('');
-  const [err, setErr] = React.useState<string>('');
+export default function Register1(props: { changePage: React.Dispatch<React.SetStateAction<0 | 1>> }): JSX.Element {
+  const register = React.useContext(RegisterContext);
 
   const handleChange = (e): void => {
     const { name, value } = e.target;
-    name === 'email' ? setEmail(value) : setUserName(value);
+    name === 'email' ? register.setRegisterData({ ...register.registerData, email: value }) : register.setRegisterData({ ...register.registerData, userName: value })
   }
 
-  const handleBlur = (e): void => {
-    const { value } = e.target;
-    if (!value.search(/(\w|\.)+@(\w|\.)+/g)) {
-      setErr('');
-    } else {
-      setErr('Wrong email format');
-    }
+  const handlePageChange = (e: FormEvent): void => {
+    e.preventDefault();
+    props.changePage(1);
   }
 
   return (
-    <form method="POST" action="/u/login">
+    <form onSubmit={handlePageChange}>
       <header>Register</header>
-      <div id="err">{err}</div>
       <label>Email:</label>
-      <input type="email" onChange={handleChange} onBlur={handleBlur} maxLength={100} name="email" value={email} />
+      <input type="email" onChange={handleChange} maxLength={100} name="email" value={register.registerData.email} />
       <label>Username:</label>
-      <input type="text" onChange={handleChange} maxLength={30} minLength={3} name="userName" value={userName} />
-      <Link to="/register2">
-        <button type="submit">&gt;</button>
-      </Link>
+      <input type="text" onChange={handleChange} maxLength={30} minLength={3} name="userName" value={register.registerData.userName} />
+      <button type="submit">&gt;</button>
       <Link to="/login">
         <button type="button">Log in</button>
       </Link>
     </form>
-  )
+  );
+
 }

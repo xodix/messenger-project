@@ -110,6 +110,10 @@ button {
   font-size: 2.81em;
 }
 
+button:disabled {
+  background-color: rgba(77, 32, 104, .4);
+}
+
 button.bigger {
   margin: auto;
   display: block;
@@ -164,9 +168,11 @@ header {
 
 .send {
   margin-left: 1em;
+  color: red;
   background-color: red;
-  width: 4em;
-  height: 4em;
+  width: 2em;
+  height: 2em;
+  margin-top: 0;
 }
 
 .chat {
@@ -247,13 +253,12 @@ header {
   margin-left: 1em;
 }
 
-.logo {
+svg {
   top: 3vh;
   position: relative;
   transform: translateY(-50%);
-  height: 3vh;
-  width: 3vh;
-  background: pink;
+  height: 5vh;
+  width: 5vh;
 }
 
 a:hover {
@@ -282,6 +287,11 @@ a:hover {
   font-size: 3em;
   color: hsl(279, 53%, 60%);
   cursor: pointer;
+}
+
+#err {
+  color: red;
+  font-weight: 10;
 }
 
 #slider {
@@ -345,7 +355,7 @@ a:hover {
     top: 94vh;
   }
 
-  .logo {
+  svg {
     display: none;
   }
 

@@ -16,7 +16,7 @@ function get(id: mongoose.Types.ObjectId) {
 function add(name: string, participants: mongoose.Types.ObjectId[]) {
   return new Promise<string>(async (resolve, reject) => {
     try {
-      await new Group({ name, participants, admins: participants[0] });
+      await new Group({ name, participants, admins: participants[0] }).save();
       resolve("added");
     } catch (err) {
       reject(err);

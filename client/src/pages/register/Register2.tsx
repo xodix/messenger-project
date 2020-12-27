@@ -1,38 +1,62 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { FormEvent, useContext } from 'react';
+// import { useHistory } from 'react-router-dom';
+import { RegisterContext, UserContext } from './../../actions/mainContext';
 
-export default function Register2(): JSX.Element {
-  const [password, setPassword] = React.useState<string>('');
-  const [repeat, setRepeat] = React.useState<string>('');
-  const [err, setErr] = React.useState<string>('');
+export default function Register2(props: { changePage: React.Dispatch<React.SetStateAction<0 | 1>> }): JSX.Element {
+  const [err, setErr] = React.useState<string>('  ');
 
+  // used to redirect
+  // const histroy = useHistory();
+
+  const register = useContext(RegisterContext);
+  const user = useContext(UserContext);
+
+  const handleRegister = (e: FormEvent): void => {
+    e.preventDefault();
+
+    const myHeaders: Headers = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw: string = JSON.stringify({ "email": register.registerData.email, "userName": register.registerData.userName, "password": register.registerData.password });
+
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw
+    };
+
+    fetch("http://localhost:5000/u/register", requestOptions)
+      .then(response => response.json())
+      .then((result): void => user.setUser({ userName: result.userName, email: result.email, id: result._id }), (err) => setErr(err))
+    // .then((): void => {
+    //   histroy.push('/chats');
+    // });
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    name === 'password' ? setPassword(value) : setRepeat(value);
+    name === 'password' ? register.setRegisterData({ ...register.registerData, password: value }) : register.setRegisterData({ ...register.registerData, repeatedPassword: value });
   }
 
   const handleBlur = (): void => {
-    if (password === repeat) {
+    if (register.registerData.password === register.registerData.repeatedPassword) {
       setErr('');
     } else {
-        setErr('Both fields need to be the same');
+      setErr('Both fields need to be the same');
     }
   }
 
-
   return (
-    <form method="POST" action="/a/register">
+    <form onSubmit={handleRegister}>
       <header>Register</header>
-      <div>{err}</div>
+      <div id="err">{err}</div>
       <label>Password:</label>
-      <input type="password" name="password" onChange={handleChange} onBlur={handleBlur} maxLength={30} minLength={8} value={password} />
+      <input type="password" name="password" onChange={handleChange} onBlur={handleBlur} maxLength={30} minLength={8} value={register.registerData.password} />
       <label>Repeat password:</label>
-      <input type="password" name="repeat" onChange={handleChange} onBlur={handleBlur} maxLength={30} minLength={8} value={repeat} />
+      <input type="password" name="repeat" onChange={handleChange} onBlur={handleBlur} maxLength={30} minLength={8} value={register.registerData.repeatedPassword} />
       <button type="submit" disabled={!!err}>Register</button>
-      <Link to="/register1">
-        <button type="button">&lt;</button>
-      </Link>
+      <button type="button" onClick={() => props.changePage(0)}>&lt;</button>
     </form>
-  )
+  );
+
 }

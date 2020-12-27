@@ -1,51 +1,52 @@
-export {};
-// import React, {useState, useEffect} from 'react';
-// import Nav from './../../components/Nav';
-// import socketIOClient from 'socket.io-client';
-// const ENDPOINT = "http://localhost:5000";
+import React, { useState, useEffect } from 'react';
+import Nav from './../../components/Nav';
+import socketIOClient from 'socket.io-client';
+const ENDPOINT = "http://localhost:5000/";
 
-// function Chat() {
-//   const [nick, setNick] = useState('anonymus');
-//   const [response, setResponse] = useState([]);
+function Chat(): JSX.Element {
 
-//   useEffect(() => {
-//     let socket = socketIOClient(ENDPOINT);
+  const [nick] = useState<string>('anonymus');
+  const [response, setResponse] = useState<any[]>([]);
 
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     document.getElementsByTagName('form')[0].addEventListener("submit", (e) => {
-//       e.preventDefault();
-//       socket.emit('message', { nick, content: e.target!.msg.value });
-//       e.target!.msg.value = '';
-//     })
+  useEffect((): any => {
+    let socket = socketIOClient(ENDPOINT);
 
-//     socket.on("message", data => {
-//       setResponse((state) => [...state, data]);
-//     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    document.getElementsByClassName('send')[0].addEventListener("click", (e: any): void => {
+      const input: HTMLInputElement = document.getElementsByName('msg')[0] as HTMLInputElement;
+      socket.emit('message', { nick, content: input.value })
+    });
 
-//     // ComponentWillUnmount... yeah veary intuative Facebook
-//     return () => socket.disconnect();
-//   }, []);
-//     return (
-//       <>
-//         <Nav />
-//         <main>
-//     {
-//     response.map(elem => {
-//       return (
-//         <div className="message-group">
-//           <div className="nick-name">{elem.nick}</div>
-//           <div className="message">{elem.content}</div>
-//         </div>
-//       );
-//     })
-//     }
-//           <div className="chat">
-//             <input type="text" className="chat-input" autoComplete='false' autoFocus />
-//             <div className="send"></div>
-//           </div>
-//         </main>
-//       </>
-//     )
-// }
+    socket.on("message", (data: { nick: string, content: string }): void => {
+      setResponse([...response, data]);
+    });
 
-// export default Chat;
+    // ComponentWillUnmount... yeah veary intuative Facebook
+    return () => socket.disconnect();
+  }, [nick, response]);
+
+  return (
+    <>
+      <Nav />
+      <main>
+        {
+          response.map((elem, i) => {
+            return (
+              <div className="message-group" key={i}>
+                <div className="nick-name">{elem.nick}</div>
+                <div className="message">{elem.content}</div>
+              </div>
+            );
+          })
+        }
+        <div className="chat">
+          <input type="text" className="chat-input" autoComplete='false' autoFocus name="msg" />
+          <input type="submit" className="send" />
+        </div>
+      </main>
+    </>
+  );
+
+}
+
+export default Chat;

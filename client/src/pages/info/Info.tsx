@@ -15,7 +15,7 @@ export default function Info(): JSX.Element {
 
     const interval = setInterval(() => {
 
-      slider!.animate([{ opacity: 1 }, { opacity: .6 }], {duration: 1000, easing: 'linear'});
+      slider!.animate([{ opacity: 1 }, { opacity: .6 }], { duration: 1000, easing: 'linear' });
       slider!.style.opacity = ".6";
 
       setTimeout(() => {
@@ -41,7 +41,7 @@ export default function Info(): JSX.Element {
 
     const slider = document.getElementById("slider");
 
-    slider!.animate([{ opacity: .6 }, { opacity: 1 }], {duration: 1000, easing: 'linear'});
+    slider!.animate([{ opacity: .6 }, { opacity: 1 }], { duration: 1000, easing: 'linear' });
 
     slider!.style.opacity = "1";
 
@@ -51,12 +51,12 @@ export default function Info(): JSX.Element {
     <div className="container">
       <div className="half">
         <header>Contact your friends.</header>
-        <Link to="/login">
+        <Link to="/register">
           <button className="bigger">Start</button>
         </Link>
       </div>
       <div className="half">
-        <img src={Slide} id="slider" alt="slider" onLoad={handleImgLoad}/>
+        <img src={Slide} id="slider" alt="slider" onLoad={handleImgLoad} />
       </div>
     </div>
   );
