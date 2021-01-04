@@ -12,19 +12,19 @@ interface IUser {
 };
 
 // *checks if user exists in db*
-async function exists(email: string, password: string): Promise<string | object> {
+function exists(email: string, password: string): Promise<string | object> {
   return new Promise<object | string>(async (resolve, reject): Promise<void> => {
     try {
       // @ts-ignore
       const user: IUser = await User.findOne({ email });
-      if (!user) reject({ message: 'wrong email' });
+      if (!user) reject({ err: 'wrong email' });
       if (await bcrypt.compare(password, user.password)) {
         const token = jwt.sign({ id: user._id }, config.JWT_SECRET as string, {
           expiresIn: 3600
         });
-        resolve({ token, authenticated: true });
+        resolve({ email: user.email, userName: user.userName, token, authenticated: true });
       } else {
-        reject({ message: 'wrong password' });
+        reject({ err: 'wrong password' });
       }
     } catch (err) {
       reject(err);

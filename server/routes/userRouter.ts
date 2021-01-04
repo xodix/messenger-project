@@ -7,7 +7,7 @@ router.post('/login', async (req, res) => {
   try {
     res.status(200).json(await User.exists(req.body.email, req.body.password));
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json(error);
   }
 });
 

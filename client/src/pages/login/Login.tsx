@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { UserContext } from '../../actions/mainContext';
 
 export default function Login() {
 
   const [err, setErr] = useState<string>('');
+  const user = useContext(UserContext);
+  const history = useHistory();
 
   const handleLogin = (e): void => {
+    e.preventDefault();
     const myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const raw: string = JSON.stringify({ "email": e.email.value, "password": e.password.value });
+    const raw: string = JSON.stringify({ "email": e.target.email.value, "password": e.target.password.value });
 
     const requestOptions: RequestInit = {
       method: 'POST',
@@ -18,15 +22,22 @@ export default function Login() {
       redirect: 'follow'
     };
 
-    fetch("localhost:5000/u/login", requestOptions)
+    fetch("http://localhost:5000/u/login", requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result), (err: string) => setErr(err));
+      .then(result => {
+        if (result.authenticated) {
+          user.setUser({ email: result.email, userName: result.userName, jwtToken: result.token });
+          history.push('/chats');
+        }
+        else setErr(result.err)
+      },
+        (err: string) => setErr(err));
   }
 
   return (
     <form onSubmit={handleLogin}>
-      <div id="err">{err}</div>
       <header>Log in</header>
+      <div id="err">{err}</div>
       <label>Email:</label>
       <input type="text" name="email" maxLength={100} minLength={3} />
       <label>Password:</label>
