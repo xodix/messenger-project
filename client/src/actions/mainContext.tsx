@@ -10,7 +10,8 @@ interface IRegisterData {
   email: string,
   userName: string,
   password: string,
-  repeatedPassword: string
+  repeatedPassword: string,
+  err: string
 }
 
 export const RegisterContext = React.createContext<{ registerData: IRegisterData, setRegisterData: any }>({
@@ -18,7 +19,8 @@ export const RegisterContext = React.createContext<{ registerData: IRegisterData
     email: '',
     userName: '',
     password: '',
-    repeatedPassword: ''
+    repeatedPassword: '',
+    err: '  '
   },
   setRegisterData: null
 });
@@ -28,7 +30,8 @@ export const RegisterProvider = (props: JSX.ElementChildrenAttribute): JSX.Eleme
     email: '',
     userName: '',
     password: '',
-    repeatedPassword: ''
+    repeatedPassword: '',
+    err: '  '
   });
   return (
     <RegisterContext.Provider value={{ registerData, setRegisterData }}>

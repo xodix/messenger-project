@@ -18,6 +18,7 @@ export default function Register1(props: { changePage: React.Dispatch<React.SetS
   return (
     <form onSubmit={handlePageChange}>
       <header>Register</header>
+      <div id="err">{register.registerData.err}</div>
       <label>Email:</label>
       <input type="email" onChange={handleChange} maxLength={100} name="email" value={register.registerData.email} />
       <label>Username:</label>

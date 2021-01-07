@@ -36,15 +36,20 @@ function exists(email: string, password: string): Promise<string | object> {
 function add(email: string, password: string, userName: string) {
   return new Promise<object | string>(async (resolve, reject) => {
     try {
-      const user = await new User({
-        email,
-        password: await bcrypt.hash(password, 5),
-        userName
-      }).save();
-      const token = jwt.sign({ id: user.id }, config.JWT_SECRET as string, {
-        expiresIn: 3600
-      });
-      resolve({ token, authenticated: true });
+      console.log(await User.findOne({ email }));
+      if (await User.findOne({ email })) reject("Account with this email alredy exists!");
+      else if (await User.findOne({ userName })) reject("Account with this username alredy exists!");
+      else {
+        const user = await new User({
+          email,
+          password: await bcrypt.hash(password, 5),
+          userName
+        }).save();
+        const jwtToken = jwt.sign({ id: user.id }, config.JWT_SECRET as string, {
+          expiresIn: 3600
+        });
+        resolve({ jwtToken, email, userName });
+      }
     } catch (err) {
       reject(err);
     }

@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
   try {
     res.status(200).json(await User.add(req.body.email, req.body.password, req.body.userName));
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json(error);
   }
 });
 
