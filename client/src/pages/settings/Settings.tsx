@@ -1,76 +1,72 @@
-import React, { FormEvent } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../actions/mainContext';
 import Nav from '../../components/Nav';
+import { PopupRepeat } from '../../components/Popup';
 import ProvilePic from './img/profile-pic.jpg';
 
-function Settings() {
+function Settings(): JSX.Element {
+  const history = useHistory();
+  const { user } = useContext(UserContext);
 
-  const [popupDisplay, setpopupDisplay] = React.useState<'none' | 'block'>('none');
-  const [iWantToChange, setiWantToChange] = React.useState<'username' | 'email' | 'newpassword'>('username');
+  useEffect(() => {
+    if (!user.jwtToken) history.push('/login');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  const [display, setDisplay] = useState<'none' | 'block'>('none');
+  const [displayName, setDisplayName] = useState<string>('');
+  const [hBodyName, setHBodyName] = useState<string>('');
 
   const handleClick = (e) => {
-    setiWantToChange(e.target.id);
-    e.target.parent.parentElement.action = e.target.id;
-    setpopupDisplay(e.target.className === 'change' ? 'block' : 'none');
+    setDisplay('block');
+    switch (e.target.id) {
+      case 'username':
+        setDisplayName('username');
+        setHBodyName('username');
+        break;
+      case 'email':
+        setDisplayName('email');
+        setHBodyName('email');
+        break;
+      case 'newpassword':
+        setDisplayName('new password');
+        setHBodyName('newPassword');
+        break;
+    }
   }
 
   return (
     <>
       <Nav />
-      <main style={{ display: popupDisplay === "block" ? "none" : "block" }}>
+      <main>
         <img src={ProvilePic} alt="Here should be a provile pic that failed to load" className="profile-pic" />
         <div className="setting">
           <h3>Username:</h3>
           <div className="pab">
-            <p>anonica</p>
-            <button className="change" onClick={handleClick} id="username">change</button>
+            <p>{user.userName}</p>
+            <button className="change" id="username" onClick={handleClick}>change</button>
           </div>
           <hr />
         </div>
         <div className="setting">
           <h3>Email:</h3>
           <div className="pab">
-            <p>krówka.patrycja@op.pl</p>
-            <button className="change" onClick={handleClick} id="email">change</button>
+            <p>{user.email}</p>
+            <button className="change" id="email" onClick={handleClick}>change</button>
           </div>
           <hr />
         </div>
         <div className="setting">
           <h3>Password:</h3>
           <div className="pab">
-            <p>******</p>
-            <button className="change" onClick={handleClick} id="newpassword">change</button>
+            <p>********</p>
+            <button className="change" id="newpassword" onClick={handleClick}>change</button>
           </div>
           <hr />
         </div>
       </main>
-
-
-      <form id="popup" style={{ display: popupDisplay }}>
-        <div className="close" onClick={handleClick}>X</div>
-        <label htmlFor={iWantToChange}>
-          {`${iWantToChange}:`}
-        </label>
-        <input
-          type="text"
-          name={iWantToChange}
-        />
-        <label htmlFor="">
-          {`repeat ${iWantToChange}:`}
-        </label>
-        <input
-          type="text"
-          name={`${iWantToChange} repeat`}
-        />
-        <label htmlFor="password">
-          password:
-            </label>
-        <input
-          type="text"
-          name="password"
-        />
-        <button>send</button>
-      </form>
+      <PopupRepeat displayName={displayName} hBodyName={hBodyName} display={display} setDisplay={setDisplay} />
     </>
   );
 }
