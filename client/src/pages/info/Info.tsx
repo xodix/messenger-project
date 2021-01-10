@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import slider1 from "./img/slider1.jpg";
 import slider2 from "./img/slider2.jpg";
 import slider3 from "./img/slider3.jpg";
@@ -7,43 +7,44 @@ import { Link } from "react-router-dom";
 export default function Info(): JSX.Element {
 
   const [Slide, SetSlide] = React.useState<string>(slider1);
-  const [I, SetI] = React.useState<number>(1);
   document.getElementsByTagName('body')[0].style.marginBottom = "0";
+  const slider = useRef<HTMLImageElement>(null);
 
   React.useEffect((): () => void => {
-    const slider = document.getElementById("slider");
 
-    const interval = setInterval(() => {
+    let I: 1 | 2 | 3 = 1;
 
-      slider!.animate([{ opacity: 1 }, { opacity: .6 }], { duration: 1000, easing: 'linear' });
-      slider!.style.opacity = ".6";
+    const interval = setInterval((): void => {
 
-      setTimeout(() => {
+      slider.current!.animate([{ opacity: 1 }, { opacity: .6 }], { duration: 1000, easing: 'linear' });
+      slider.current!.style.opacity = ".6";
+
+      setTimeout((): void => {
+
         if (I === 1) {
           SetSlide(slider2);
-          SetI(2);
+          I = 2;
         } else if (I === 2) {
           SetSlide(slider3);
-          SetI(3);
+          I = 3;
         } else {
           SetSlide(slider1);
-          SetI(1);
+          I = 1;
         }
+
       }, 1000);
 
     }, 9000);
 
     return () => clearInterval(interval);
 
-  }, [I, Slide]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleImgLoad = () => {
 
-    const slider = document.getElementById("slider");
-
-    slider!.animate([{ opacity: .6 }, { opacity: 1 }], { duration: 1000, easing: 'linear' });
-
-    slider!.style.opacity = "1";
+    slider.current!.animate([{ opacity: .6 }, { opacity: 1 }], { duration: 1000, easing: 'linear' });
+    slider.current!.style.opacity = "1";
 
   }
 
@@ -56,7 +57,7 @@ export default function Info(): JSX.Element {
         </Link>
       </div>
       <div className="half">
-        <img src={Slide} id="slider" alt="slider" onLoad={handleImgLoad} />
+        <img src={Slide} ref={slider} id="slider" alt="slider" onLoad={handleImgLoad} />
       </div>
     </div>
   );

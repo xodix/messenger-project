@@ -1,13 +1,13 @@
-import React, { FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { RegisterContext } from './../../actions/mainContext';
 import { Link } from 'react-router-dom';
 
 export default function Register1(props: { changePage: React.Dispatch<React.SetStateAction<0 | 1>> }): JSX.Element {
   const register = React.useContext(RegisterContext);
 
-  const handleChange = (e): void => {
-    const { name, value } = e.target;
-    name === 'email' ? register.setRegisterData({ ...register.registerData, email: value }) : register.setRegisterData({ ...register.registerData, userName: value })
+  const handleChange = (e: ChangeEvent): void => {
+    const { name, value } = e.target as HTMLInputElement;
+    name === 'email' ? register.setRegisterData({ ...register.registerData, email: value }) : register.setRegisterData({ ...register.registerData, userName: value });
   }
 
   const handlePageChange = (e: FormEvent): void => {

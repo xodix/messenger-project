@@ -1,4 +1,4 @@
-// todo: connect to db | implement jwt tokens
+// todo: connect to db settings popups
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -15,7 +15,6 @@ import Chat from './pages/chat/Chat';
 import p404 from './pages/404/404';
 
 // !test
-// import Render from './pages/renders/';
 import { UserProvider } from './actions/mainContext';
 
 function App(): JSX.Element {
@@ -28,8 +27,8 @@ function App(): JSX.Element {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/chats" component={Chats} />
+          <Route path="/chat/:groupId" component={Chat} />
           <Route path="/settings" component={Settings} />
-          <Route path="/chat" component={Chat} />
           <Route path="/*" component={p404} />
         </Switch>
       </Router>

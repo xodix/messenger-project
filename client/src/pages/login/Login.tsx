@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { UserContext } from '../../actions/mainContext';
+import { ILoginRes } from './../../interfaces/ILoginRes';
 
 export default function Login() {
 
@@ -8,12 +9,12 @@ export default function Login() {
   const user = useContext(UserContext);
   const history = useHistory();
 
-  const handleLogin = (e): void => {
+  const handleLogin = (e: FormEvent): void => {
     e.preventDefault();
     const myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const raw: string = JSON.stringify({ "email": e.target.email.value, "password": e.target.password.value });
+    const raw: string = JSON.stringify({ "email": (e.target as HTMLFormElement).email.value, "password": (e.target as HTMLFormElement).password.value });
 
     const requestOptions: RequestInit = {
       method: 'POST',
@@ -23,8 +24,8 @@ export default function Login() {
     };
 
     fetch("http://localhost:5000/u/login", requestOptions)
-      .then(response => response.json())
-      .then(result => {
+      .then((response: Response) => response.json())
+      .then((result: ILoginRes) => {
         if (result.authenticated) {
           user.setUser({ email: result.email, userName: result.userName, jwtToken: result.token });
           history.push('/chats');

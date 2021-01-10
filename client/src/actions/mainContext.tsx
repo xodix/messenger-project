@@ -1,18 +1,6 @@
 import React from "react";
-
-interface IUser {
-  email: string,
-  userName: string,
-  jwtToken: string
-}
-
-interface IRegisterData {
-  email: string,
-  userName: string,
-  password: string,
-  repeatedPassword: string,
-  err: string
-}
+import { IRegisterData } from "../interfaces/IRegisterData";
+import { IUser } from "../interfaces/IUser";
 
 export const RegisterContext = React.createContext<{ registerData: IRegisterData, setRegisterData: any }>({
   registerData: {

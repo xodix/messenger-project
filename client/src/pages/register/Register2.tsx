@@ -1,5 +1,6 @@
-import React, { FormEvent, useContext } from 'react';
+import React, { ChangeEvent, FormEvent, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { IUser } from '../../interfaces/IUser';
 import { RegisterContext, UserContext } from './../../actions/mainContext';
 
 export default function Register2(props: { changePage: React.Dispatch<React.SetStateAction<0 | 1>> }): JSX.Element {
@@ -24,8 +25,8 @@ export default function Register2(props: { changePage: React.Dispatch<React.SetS
     };
 
     fetch("http://localhost:5000/u/register", requestOptions)
-      .then(response => response.json())
-      .then((result): void => {
+      .then((response: Response) => response.json())
+      .then((result: IUser): void => {
         if (result.jwtToken) {
           setUser({ userName: result.userName, email: result.email, jwtToken: result.jwtToken });
           histroy.push('/chats');
@@ -34,8 +35,8 @@ export default function Register2(props: { changePage: React.Dispatch<React.SetS
       }, (err) => register.setRegisterData({ ...register.registerData, err }));
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e: ChangeEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
     name === 'password' ? register.setRegisterData({ ...register.registerData, password: value }) : register.setRegisterData({ ...register.registerData, repeatedPassword: value });
   }
 

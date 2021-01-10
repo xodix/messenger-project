@@ -3,11 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../actions/mainContext';
 import Nav from '../../components/Nav';
 import { PopupRepeat } from '../../components/Popup';
+import { IUser } from '../../interfaces/IUser';
 import ProvilePic from './img/profile-pic.jpg';
 
 function Settings(): JSX.Element {
-  const history = useHistory();
-  const { user } = useContext(UserContext);
+  const history = useHistory<unknown>();
+  const { user } = useContext<{ user: IUser, setUser: any }>(UserContext);
 
   useEffect(() => {
     if (!user.jwtToken) history.push('/login');
@@ -18,9 +19,9 @@ function Settings(): JSX.Element {
   const [displayName, setDisplayName] = useState<string>('');
   const [hBodyName, setHBodyName] = useState<string>('');
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     setDisplay('block');
-    switch (e.target.id) {
+    switch ((e.target as HTMLButtonElement).id) {
       case 'username':
         setDisplayName('username');
         setHBodyName('username');
