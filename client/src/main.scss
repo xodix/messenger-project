@@ -79,6 +79,7 @@ a {
 h1 {
   text-align: left;
   margin-left: 1em;
+  margin-right: 1em;
   margin-bottom: 0;
 }
 
@@ -185,6 +186,7 @@ header {
 }
 
 .pab {
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -277,7 +279,7 @@ a:hover {
 
 .change {
   flex: 1;
-  width: 10%;
+  width: fit-content;
   font-size: 1em;
   margin: 0;
 }
@@ -385,6 +387,10 @@ a:hover {
 }
 
 @media (max-width: 730px) {
+  #popup {
+    width: 80%;
+  }
+
   main {
     width: 90%;
   }
