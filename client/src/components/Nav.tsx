@@ -12,6 +12,9 @@ function Nav(): JSX.Element {
             <Link to="/chats">home</Link>
           </div>
           <div className="nav-elem">
+            <Link to="/friends">friends</Link>
+          </div>
+          <div className="nav-elem">
             <Link to="/chats">chats</Link>
           </div>
           <div className="nav-elem">

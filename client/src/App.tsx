@@ -9,9 +9,10 @@ import './main.min.css'
 import Info from './pages/info/Info';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
-import Chats from './pages/chats/Chats';
-import Settings from './pages/settings/Settings';
 import Chat from './pages/chat/Chat';
+import Chats from './pages/chats/Chats';
+import Friends from './pages/friends/Friends';
+import Settings from './pages/settings/Settings';
 import p404 from './pages/404/404';
 
 // !test
@@ -27,6 +28,7 @@ function App(): JSX.Element {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/chats" component={Chats} />
+          <Route path="/friends" component={Friends} />
           <Route path="/chat/:groupId" component={Chat} />
           <Route path="/settings" component={Settings} />
           <Route path="/*" component={p404} />
