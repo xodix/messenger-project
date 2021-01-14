@@ -10,7 +10,7 @@ export default function Register2(props: { changePage: React.Dispatch<React.SetS
   const register = useContext(RegisterContext);
   const { setUser } = useContext(UserContext);
 
-  const handleRegister = (e: FormEvent): void => {
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
     const myHeaders: Headers = new Headers();
@@ -24,15 +24,23 @@ export default function Register2(props: { changePage: React.Dispatch<React.SetS
       body: raw
     };
 
-    fetch("http://localhost:5000/u/register", requestOptions)
-      .then((response: Response) => response.json())
-      .then((result: IUser): void => {
-        if (result.jwtToken) {
-          setUser({ userName: result.userName, email: result.email, jwtToken: result.jwtToken });
-          histroy.push('/chats');
-        }
-        else register.setRegisterData({ ...register.registerData, err: result });
-      }, (err) => register.setRegisterData({ ...register.registerData, err }));
+    try {
+
+      const response = await fetch("http://localhost:5000/u/register", requestOptions);
+      const result: IUser = await response.json();
+
+      if (result.jwtToken) {
+        setUser({ userName: result.userName, email: result.email, jwtToken: result.jwtToken });
+        histroy.push('/chats');
+      }
+
+      else register.setRegisterData({ ...register.registerData, err: result });
+
+    } catch (err) {
+
+      register.setRegisterData({ ...register.registerData, err: "service is not aviable" });
+
+    }
   }
 
   const handleChange = (e: ChangeEvent) => {

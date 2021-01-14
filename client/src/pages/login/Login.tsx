@@ -8,9 +8,7 @@ export default function Login() {
   const [err, setErr] = useState<string>('');
   const user = useContext(UserContext);
   const history = useHistory();
-
-  const handleLogin = (e: FormEvent): void => {
-    e.preventDefault();
+  const fetchLogin = async (e: FormEvent) => {
     const myHeaders: Headers = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -23,16 +21,29 @@ export default function Login() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:5000/u/login", requestOptions)
-      .then((response: Response) => response.json())
-      .then((result: ILoginRes) => {
-        if (result.authenticated) {
-          user.setUser({ email: result.email, userName: result.userName, jwtToken: result.token });
-          history.push('/chats');
-        }
-        else setErr(result.err)
-      },
-        (err: string) => setErr(err));
+    try {
+
+      const response = await fetch("http://localhost:5000/u/login", requestOptions);
+
+      const result: ILoginRes = await response.json();
+
+      if (result.authenticated) {
+        user.setUser({ email: result.email, userName: result.userName, jwtToken: result.token });
+        history.push('/chats');
+      }
+
+      else setErr(result.err)
+
+    } catch (err) {
+
+      setErr("service is not available");
+
+    }
+  }
+
+  const handleLogin = (e: FormEvent): void => {
+    e.preventDefault();
+    fetchLogin(e);
   }
 
   return (

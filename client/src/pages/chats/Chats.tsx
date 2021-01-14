@@ -5,30 +5,37 @@ import { useHistory } from 'react-router-dom';
 
 import { Popup } from './../../components/Popup';
 
+
 function Chats() {
   const history = useHistory();
   const [groups, setGroups] = useState<{ name: string }[]>([{ name: '' }]);
   const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    if (!user.jwtToken) history.push('/login');
-    else {
+  async function getGroups(): Promise<void> {
 
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("x-auth-token", user.jwtToken);
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("x-auth-token", user.jwtToken);
 
-      const requestOptions: RequestInit = {
-        method: 'POST',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
 
-      fetch("http://localhost:5000/g/get", requestOptions)
-        .then(response => response.json())
-        .then(result => setGroups(result), err => console.error(err));
+    try {
 
+      const response = await fetch("http://localhost:5000/g/get", requestOptions);
+      response.ok ? setGroups(await response.json()) : alert('service is not available');
+
+    } catch (err) {
+      console.error(err);
     }
+
+  }
+
+  useEffect(() => {
+    !user.jwtToken ? history.push('/login') : getGroups();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
