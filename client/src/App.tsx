@@ -5,36 +5,41 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // !styling
 import './main.min.css'
 
+// !provider
+import { UserProvider } from './actions/mainContext';
+
 // !pages
-import Info from './pages/info/Info';
+import InfoX from './pages/info/Info';
 import Login from './pages/login/Login';
-import Register from './pages/register/Register';
 import Chat from './pages/chat/Chat';
 import Chats from './pages/chats/Chats';
 import Friends from './pages/friends/Friends';
-import Settings from './pages/settings/Settings';
-import p404 from './pages/404/404';
 
-// !test
-import { UserProvider } from './actions/mainContext';
+// !lazily loading less used pages
+const Info = React.lazy(() => import('./pages/info/Info'));
+const Settings = React.lazy(() => import('./pages/settings/Settings'));
+const Register = React.lazy(() => import('./pages/register/Register'));
+const p404 = React.lazy(() => import('./pages/404/404'));
 
 function App(): JSX.Element {
   return (
-    <UserProvider>
-      <Router>
-        <Switch>
-          <Route path="/" exact component={Info} />
-          <Route path="/about" component={Info} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/chats" component={Chats} />
-          <Route path="/friends" component={Friends} />
-          <Route path="/chat/:groupId" component={Chat} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/*" component={p404} />
-        </Switch>
-      </Router>
-    </UserProvider>
+    <Router>
+      <UserProvider>
+        <React.Suspense fallback={<h1>Loading content...</h1>}>
+          <Switch>
+            <Route path="/" exact component={InfoX} />
+            <Route path="/about" component={Info} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/chats" component={Chats} />
+            <Route path="/friends" component={Friends} />
+            <Route path="/chat/:groupId" component={Chat} />
+            <Route path="/settings" component={Settings} />
+            <Route path="/*" component={p404} />
+          </Switch>
+        </React.Suspense>
+      </UserProvider>
+    </Router>
   );
 }
 
