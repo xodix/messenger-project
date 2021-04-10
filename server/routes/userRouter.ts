@@ -1,4 +1,5 @@
 import { Router } from "express";
+import auth from "../middleware/auth";
 const router = Router();
 import User from "./../controllers/User";
 
@@ -24,6 +25,15 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// *@POST root/u/get {jwtToken}*
+router.post("/get", auth, async (req: any, res) => {
+  try {
+    res.status(200).json(await User.getWithId(req.id));
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 // *@POST root/u/changePassword {email, password, repeat}
 router.post("/changePassword", async (req, res) => {
   try {
@@ -37,7 +47,7 @@ router.post("/changePassword", async (req, res) => {
         )
       );
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json(error);
   }
 });
 
@@ -46,7 +56,7 @@ router.delete("/delete", async (req, res) => {
   try {
     res.status(200).json(await User.remove(req.body.email, req.body.password));
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json(error);
   }
 });
 

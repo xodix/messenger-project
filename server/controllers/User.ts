@@ -11,6 +11,20 @@ interface IUser {
   __v: number;
 }
 
+async function getWithId(id: string) {
+  try {
+    const user = (await User.findById(id)) as IUser | null;
+    if (!user) return new Error("There is no user with this id");
+    else
+      return {
+        email: user.email,
+        userName: user.userName,
+      };
+  } catch (error) {
+    return new Error(error);
+  }
+}
+
 // *checks if user exists in db*
 async function exists(email: string, password: string) {
   try {
@@ -107,6 +121,7 @@ async function remove(email: string, password: string) {
 export default {
   exists,
   add,
+  getWithId,
   changePassword,
   remove,
 };
