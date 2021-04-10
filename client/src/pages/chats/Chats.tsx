@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
 import { UserContext } from './../../actions/mainContext'
 import { useHistory } from 'react-router-dom';
+import Spinner from "./../../components/Spinner";
 
 import { Popup } from './../../components/Popup';
 
 
 function Chats() {
   const history = useHistory();
-  const [groups, setGroups] = useState<{ name: string }[]>([{ name: '' }]);
+  const [groups, setGroups] = useState<{ name: string }[] | null>(null);
   const { user } = useContext(UserContext);
 
   async function getGroups(): Promise<void> {
@@ -41,6 +42,25 @@ function Chats() {
 
   const [display, setDisplay] = useState<'none' | 'block'>('none');
 
+  const renderChats = () => {
+    if (groups === null) {
+      return <Spinner />;
+    } else {
+      return groups.length === 0
+        ? <h1 style={{ textAlign: 'center' }}>You aren't involved in any groups!</h1>
+        : groups.map((group, i) => {
+          return (
+            <div className="group" key={i}>
+              <div className="group-logo"></div>
+              <div className="group-name">
+                <h1>{group.name}</h1>
+              </div>
+            </div>
+          )
+        })
+    }
+  }
+
   return (
     <>
       <Nav />
@@ -58,18 +78,7 @@ function Chats() {
           +
         </button>
         {
-          !groups.length
-            ? <h1 style={{ textAlign: 'center' }}>You aren't involved in any groups!</h1>
-            : groups.map((group, i) => {
-              return (
-                <div className="group" key={i}>
-                  <div className="group-logo"></div>
-                  <div className="group-name">
-                    <h1>{group.name}</h1>
-                  </div>
-                </div>
-              )
-            })
+          renderChats()
         }
       </main>
     </>

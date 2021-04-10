@@ -4,11 +4,12 @@ import { UserContext } from './../../actions/mainContext';
 import { useHistory } from 'react-router-dom';
 
 import { Popup } from './../../components/Popup';
+import Spinner from '../../components/Spinner';
 
 function Friends(): JSX.Element {
 
   const history = useHistory();
-  const [friends, setFriends] = useState<{ name: string }[]>([{ name: '' }]);
+  const [friends, setFriends] = useState<{ name: string }[] | null>(null);
   const { user } = useContext(UserContext);
 
   async function getFriends(): Promise<void> {
@@ -42,6 +43,25 @@ function Friends(): JSX.Element {
 
   const [display, setDisplay] = useState<'none' | 'block'>('none');
 
+  const renderFriends = () => {
+    if (friends === null) {
+      return <Spinner />
+    } else {
+      return !friends.length
+        ? <h1 style={{ textAlign: 'center' }}>You don't have any friends :&#40;</h1>
+        : friends.map((friend, i) => {
+          return (
+            <div className="group" key={i}>
+              <div className="group-logo"></div>
+              <div className="group-name">
+                <h1>{friend.name}</h1>
+              </div>
+            </div>
+          )
+        });
+    }
+  }
+
   return (
     <>
       <Nav />
@@ -59,18 +79,7 @@ function Friends(): JSX.Element {
           +
         </button>
         {
-          !friends.length
-            ? <h1 style={{ textAlign: 'center' }}>You don't have any friends :&#40;</h1>
-            : friends.map((friend, i) => {
-              return (
-                <div className="group" key={i}>
-                  <div className="group-logo"></div>
-                  <div className="group-name">
-                    <h1>{friend.name}</h1>
-                  </div>
-                </div>
-              )
-            })
+          renderFriends()
         }
       </main>
     </>
